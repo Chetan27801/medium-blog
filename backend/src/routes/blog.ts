@@ -14,7 +14,7 @@ export const blogRouter = new Hono<{
 	};
 }>();
 
-//middleware
+//middlewares
 blogRouter.use("/*", async (c, next) => {
 	const authHeader = c.req.header("authorization") || "";
 	const token = authHeader.split(" ")[1];
@@ -55,6 +55,7 @@ blogRouter.post("/", async (c) => {
 		id: blog.id,
 	});
 });
+
 blogRouter.put("/", async (c) => {
 	const body = await c.req.json();
 	const { success } = updateBlogInput.safeParse(body);
