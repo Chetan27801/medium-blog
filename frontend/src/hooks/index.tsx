@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BACKEND_URL } from "../config";
 
 export interface Blog {
 	content: string;
@@ -16,7 +17,7 @@ export const useBlog = ({ id }: { id: string }) => {
 
 	useEffect(() => {
 		axios
-			.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/${id}`, {
+			.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
 				headers: {
 					Authorization: localStorage.getItem("token"),
 				},
@@ -39,7 +40,7 @@ export const useBlogs = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/bulk`, {
+			.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
 				headers: {
 					Authorization: localStorage.getItem("token"),
 				},
