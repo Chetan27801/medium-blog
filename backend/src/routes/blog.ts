@@ -91,7 +91,7 @@ blogRouter.put("/", async (c) => {
 		});
 	}
 });
-blogRouter.get("/bluk", async (c) => {
+blogRouter.get("/bulk", async (c) => {
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env.DATABASE_URL,
 	}).$extends(withAccelerate());
@@ -99,7 +99,18 @@ blogRouter.get("/bluk", async (c) => {
 	//Todo: we can add pagination to return 10 blogs
 
 	try {
-		const blogs = await prisma.post.findMany();
+		const blogs = await prisma.post.findMany({
+			select: {
+				content: true,
+				title: true,
+				id: true,
+				author: {
+					select: {
+						name: true,
+					},
+				},
+			},
+		});
 		return c.json({
 			blogs,
 		});
@@ -121,6 +132,16 @@ blogRouter.get("/:id", async (c) => {
 		const blog = await prisma.post.findFirst({
 			where: {
 				id: id,
+			},
+			select: {
+				title: true,
+				content: true,
+				id: true,
+				author: {
+					select: {
+						name: true,
+					},
+				},
 			},
 		});
 
