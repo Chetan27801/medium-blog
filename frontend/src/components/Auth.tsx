@@ -24,7 +24,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 			// console.log(jwt);
 			const val = "Bearer " + jwt;
 			localStorage.setItem("token", val);
-			navigate("/blog");
+			navigate("/blogs");
 		} catch (error) {
 			console.log(error);
 		}
