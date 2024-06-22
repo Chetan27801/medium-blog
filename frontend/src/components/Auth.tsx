@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LabelledInput } from "./LabelledInput";
 import axios from "axios";
-import { BACKEND_URL } from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 	const [postInputs, setPostInputs] = useState<SignupInput>({
@@ -16,7 +15,9 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 	const sendRequest = async () => {
 		try {
 			const response = await axios.post(
-				`${BACKEND_URL}/api/v1/user/${type === "signin" ? "signin" : "signup"}`,
+				`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/${
+					type === "signin" ? "signin" : "signup"
+				}`,
 				postInputs
 			);
 			const jwt = response.data.jwt;
